@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"> -->
+    <title>Turn off timer</title>
+    <link rel="icon" href="static\images\break-time by juicy_fish.png">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="{{ url_for('static', filename='js/plotly-3.0.1.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/d3.v7.min.js') }}"></script>
+</head>
+
+<body>
+    <div class="main_container">
+        <div class="top-panel" style="display: flex; flex-direction: row;">
+            <div style="width: 20vw; display: flex; justify-content: center; align-items: center;">
+                <div id="blya_wrapper" style="position: relative; display: inline-block;">
+                    <button id="blya_btn" style="background: none; border: none; padding: 0; cursor: pointer;">
+                        <img src="{{ url_for('static', filename='images/blya.png') }}" alt="blya" />
+                    </button>
+                    <div id="spinner" class="spinner-circle" style="display: none;"></div>
+                </div>
+
+            </div>
+            <div class="logout" vertical-alignment="top">
+                <a href="{{ url_for('logout') }}" class="button-class">
+                    <img src="{{ url_for('static', filename='images/logout.png') }}" alt="LOGOUT" align="center" />
+                </a>
+            </div>
+            <div style="width: 20vw;"></div>
+        </div>
+
+        <!-- Таймер -->
+        <div class="timer">
+            <!-- Кнопка сон/вимкнення -->
+            <button id="modeBtn">
+                <img id="modeIcon" src="{{ url_for('static', filename='images/sleep.png') }}" alt="Mode" />
+            </button>
+            <div id="tablo">
+                <!-- Сам таймер -->
+                <div class="time-picker">
+                    <div class="time-unit" id="hours"></div>
+                    <span class="time-unit">:</span>
+                    <div class="time-unit" id="minutes"></div>
+                    <span class="time-unit">:</span>
+                    <div class="time-unit" id="seconds"></div>
+                </div>
+                <div id="media-player">
+                    <!-- Media info -->
+                    <div id="media-info">
+
+                        <div id="track-title-wrapper">
+                            <div id="playback-status">🟢🟨</div>
+                            <div id="track-title">Track Title</div>
+                        </div>
+                        <div id="track-artist">Artist Name</div>
+                        <div id="track-source">Source Name</div>
+                    </div>
+                    <div id="sound-bars"><!-- JavaScript dynamically adds bars here --></div>
+                </div>
+            </div>
+            <!-- Кнопка старт/пауза -->
+            <button id="startPauseBtn">
+                <img id="startPauseIcon" src="{{ url_for('static', filename='images/play.png') }}" alt="Start" />
+            </button>
+        </div>
+        <div class="chart_control">
+            <div style="display: flex; flex-direction: row;">
+                <button class="chart-button" id="custom_btn">
+                    <img src="{{ url_for('static', filename='images/custom.png') }}" alt="custom" />
+                </button>
+                <button class="chart-button" id="today_btn">
+                    <img src="{{ url_for('static', filename='images/today.png') }}" alt="today" />
+                </button>
+                <button class="chart-button" id="week_btn">
+                    <img src="{{ url_for('static', filename='images/week.png') }}" alt="week" />
+                </button>
+                <button class="chart-button" id="month_btn">
+                    <img src="{{ url_for('static', filename='images/month.png') }}" alt="month" />
+                </button>
+                <button class="chart-button" id="all_time_btn">
+                    <img src="{{ url_for('static', filename='images/all_time.png') }}" alt="all_time" />
+                </button>
+                <div style="width: 20vw;"></div>
+                <button class="table-type-button" id="table_type">
+                    <img src="{{ url_for('static', filename='images/appusage.png') }}" alt="chart_type"
+                        data-img1="{{ url_for('static', filename='images/appusage.png') }}"
+                        data-img2="{{ url_for('static', filename='images/timetable.png') }}" data-state="1" />
+                </button>
+            </div>
+            <div class="hidden_custom">
+                <div class="date-picker">
+                    <div class="time-unit" id="year">2024</div>
+                    <span class="time-unit">-</span>
+                    <div class="time-unit" id="month">01</div>
+                    <span class="time-unit">-</span>
+                    <div class="time-unit" id="day">01</div>
+                </div>
+            </div>
+        </div>
+        <div id="totalUsage"></div>
+        <div class="visibleChart" id="appUsage"></div>
+        <!-- <div id="timeTable"></div> -->
+    </div>
+
+    <script src="{{ url_for('static', filename='js/shared_layouts.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/blya.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/timer.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/total_usage_chart.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/app_usage_chart.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/time_table_chart.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/chart_control.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/media_player.js') }}"></script>
+</body>
+
+</html>
