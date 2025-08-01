@@ -87,8 +87,7 @@ function renderTimeTable(period) {
 
             const layout = {
                 title: {
-                    text: title_text,// text: period === 'today' ? first_words[String(period)] + " " + rows[0]["Date"] : first_words[String(period)] + " " + rows[0]["Date"] + "-" + rows[-1]["Date"],
-                    font: {
+                    text: title_text,
                         size: 22
                     }
                 },
@@ -104,7 +103,6 @@ function renderTimeTable(period) {
                 },
                 annotations: { font: { family: "Nonito" } },
                 margin: { t: 35, b: 75, l: 0, r: 0 },
-                // barcornerradius: '1%',
                 showlegend: false,
                 height: 750,
             };
