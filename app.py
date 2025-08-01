@@ -22,7 +22,7 @@ app.secret_key = os.urandom(24)  # змінити на щось випадков
 app.permanent_session_lifetime = timedelta(minutes=30)
 
 # 🔐 пароль, який треба ввести
-PASSWORD = '4521'
+PASSWORD = '****'
 
 timer_data = {
     "remaining": 60,
@@ -95,7 +95,6 @@ def show_notification(
         if image_path:
             try:
                 # Завантажуємо зображення
-                # img = tk.PhotoImage(file=image_path) # непрацює з деякими png
                 img = Image.open(image_path)
                 max_width, max_height = max_image_size
                 img = img.resize((max_width, max_height))
@@ -114,10 +113,9 @@ def show_notification(
             except Exception as e:
                 print(f"Помилка завантаження зображення: {e}")
         # Заголовок
-        # random.shuffle(titles)
         title_label = tk.Label(
             inner_frame,
-            text=custom_title,  # random.choice(titles),
+            text=custom_title,
             bg="black",
             fg=random.choice(colors),
             font=("Bahnschrift SemiLight Condensed", 16, "bold"))
@@ -129,10 +127,9 @@ def show_notification(
         canvas.create_line(0, 1, 500, 1, fill="#2C2E2D",
                            width=2)  # Додаємо лінію
         # Текст повідомлення
-        # random.shuffle(messages)
         message_label = tk.Label(
             inner_frame,
-            text=custom_text,  # random.choice(messages),
+            text=custom_text,
             bg="black",
             fg=random.choice(colors),
             font=("Bahnschrift SemiLight Condensed", 14))
@@ -559,7 +556,6 @@ def track_active_window(break_time=2400, save_period=300):
             end_time = time.time()
             if last_window:
                 log = update_log(start_time, end_time, last_window, log)
-            # print(f"Активне вікно: {window}")
             last_window = window
             start_time = time.time()
             start_time_for_breaks = time.time()
@@ -589,16 +585,11 @@ def save_log(usage_log, save_location):
     new_data = new_data.groupby(['Date', 'Program']).agg(
         {'StartTime': 'min', 'Duration(sec)': 'sum'}).reset_index()
     new_data.sort_values(['StartTime'], ascending=[True], inplace=True)
-
-    # зрізать дані старші місяця
-    # if 14000 рядків тоді все що старіше отого рядка deletаємо
-
     # скорочую назви програм
     new_data['Program'] = new_data['Program'].apply(lambda x: x.replace(
         "Google Chrome", "GChrome") if 'Google Chrome' in x else x)
     new_data['ShortName'] = new_data['Program'].apply(lambda x: (
         x[:20] + " ... " + x[-25:]) if len(x) > 50 else x)
-
     # пишу дні тижня
     weekdays_ua = {0: "Понеділок", 1: "Вівторок", 2: "Середа",
                    3: "Четвер", 4: "П\'ятниця", 5: "Субота", 6: "Неділя"}
@@ -687,7 +678,6 @@ def get_apps_usage_data(data, period, min_dur=30):
         data['WeekDay'] = 'Never mind'
     data = data.groupby(['Program', 'ShortName', 'Date', 'WeekDay', 'Color'])[
         'Duration(sec)'].sum().reset_index()
-    # data = data[data['Duration(sec)'] > min_dur]
     data.sort_values(['Duration(sec)', 'Program'],
                      ascending=True, inplace=True)
     data = data.iloc[-25:, :]
@@ -703,8 +693,3 @@ def get_total_usage_data(data):
 if __name__ == '__main__':
     Thread(target=track_active_window, daemon=True).start()
     app.run(host='0.0.0.0', port=5000, debug=False)
-
-
-# щоб при запуску або вимкненню сервака всіх розлогінювало як і по таймеру
-
-# якщо у мене буде доступ до медіа тоді можна буде і зробити окрему стату по улюбленим треках
