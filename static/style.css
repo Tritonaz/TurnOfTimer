@@ -1,0 +1,427 @@
+* {
+    -webkit-tap-highlight-color: transparent;
+}
+
+body {
+    font-family: Fantasy;
+    background-color: #000000;
+    color: #f0f0f0;
+    padding: 0;
+    margin: 0;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    /* ← Розташування елементів зверху вниз */
+    align-items: center;
+    /* Центрує по горизонталі */
+    min-height: 100vh;
+    /* Висота на весь екран */
+    box-sizing: border-box;
+}
+
+.logout img {
+    background: none;
+    /* filter: contrast(500%); */
+    filter: grayscale(100%);
+    margin: 10px 0px 10px 0px;
+    border-radius: 15px;
+    width: 60vw;
+    height: 8vh;
+    box-shadow:
+        8px 8px 6px 2px rgb(255, 212, 38, 0.55),
+        -4px -4px 6px 2px rgb(117, 117, 117, 0.55);
+    user-select: none;
+}
+
+.main_container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 98vw;
+    /* margin: 0px 0px 0px 2vw; */
+}
+
+.icon-button {
+    background: transparent;
+    border: none;
+    padding: 30px;
+    cursor: pointer;
+}
+
+/* Стилі для кнопки режиму (сон/вимкнення) */
+#modeBtn {
+    background: transparent;
+    border: none;
+    padding: 30px;
+    cursor: pointer;
+    user-select: none;
+}
+
+#modeIcon {
+    display: block;
+    width: 150px;
+    height: 150px;
+    filter: grayscale(100%);
+    transition: filter 0.3s ease;
+    box-shadow:
+        14px 12px 15px 20px rgba(0, 0, 0, 0.95),
+        -10px -8px 20px 15px rgba(248, 255, 147, 0.81),
+        inset -8px -8px 5px 5px rgba(0, 0, 0, 0.95),
+        inset 4px 4px 8px 8px rgba(248, 255, 147, 0.81);
+    border-radius: 50%;
+}
+
+#modeBtn.active #modeIcon {
+    filter: none;
+}
+
+/* Стилі для кнопки старт/пауза */
+#startPauseBtn {
+    background: transparent;
+    border: none;
+    padding: 30px;
+    cursor: pointer;
+    position: relative;
+    user-select: none;
+}
+
+#startPauseBtn::before {
+    content: '';
+    position: absolute;
+    top: 30px;
+    left: 30px;
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    filter: grayscale(100%);
+    box-shadow:
+        6px 12px 15px 20px rgba(0, 0, 0, 0.95),
+        -5px -8px 20px 15px rgba(248, 255, 147, 0.812),
+        inset -4px -12px 5px 5px rgba(0, 0, 0, 0.95),
+        inset 4px 4px 8px 8px rgba(248, 255, 147, 0.81);
+    pointer-events: none;
+}
+
+#startPauseIcon {
+    display: block;
+    width: 150px;
+    height: 150px;
+    filter: grayscale(100%);
+    transition: filter 0.2s ease, opacity 0.2s ease-out;
+    border-radius: 50%;
+    position: relative;
+    z-index: 1;
+}
+
+#startPauseIcon.fade-out {
+    opacity: 0.25;
+}
+
+#startPauseIcon.fade-in {
+    opacity: 1;
+}
+
+.timer {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    font-size: 72px;
+    margin-top: 25px;
+}
+
+.time-picker {
+    display: flex;
+    gap: 5px;
+    user-select: none;
+    touch-action: none;
+}
+
+.time-unit {
+    user-select: none;
+    touch-action: none;
+}
+
+.chart_control {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: left;
+    gap: 15px;
+    margin-top: 25px;
+    margin-bottom: 15px;
+    z-index: 2;
+    user-select: none;
+}
+
+.chart-button,
+.table-type-button {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+.chart-button img,
+.table-type-button img {
+    display: block;
+    border: none;
+    width: 100px;
+    height: 35px;
+    box-shadow: none;
+    transition: box-shadow 0.3s ease;
+    border-radius: 12px;
+    filter: grayscale(100%);
+
+}
+
+.chart-button.active img,
+.table-type-button.active img {
+    box-shadow:
+        4px 3px 7px 3px rgba(0, 0, 0, 1),
+        0px 0px 7px 5px rgba(248, 255, 147, 0.81),
+        inset -9px -6px 5px 0px rgba(0, 0, 0, 1),
+        inset 0px 0px 4px 2px rgba(248, 255, 147, 0.51);
+}
+
+.date-picker {
+    display: flex;
+    user-select: none;
+    touch-action: none;
+    font-size: 28px;
+    color: #ffffff;
+    box-shadow:
+        inset 0 10px 5px 5px rgb(0, 0, 0),
+        inset 0 -3px 5px 5px rgb(140, 140, 140);
+    padding: 0px 10px 0px 10px;
+    border-radius: 30px;
+}
+
+.hidden_custom {
+    display: none;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    /* margin: 20px 0; */
+    overflow: hidden;
+}
+
+.hidden_custom .time-unit {
+    padding: 0px 5px 0px 5px;
+}
+
+#totalUsage {
+    margin-top: 5px;
+    width: 100%;
+    height: 100%;
+    box-shadow: 0 0 20px 15px rgb(0, 0, 0);
+    z-index: 1;
+}
+
+#appUsage {
+    margin-top: 5px;
+    width: 100%;
+    height: 100%;
+    box-shadow: 0 0 20px 25px rgb(0, 0, 0);
+    z-index: 2;
+}
+
+#timeTable {
+    margin-top: 5px;
+    /* margin-bottom: 40px; */
+    width: 100%;
+    height: 100%;
+    box-shadow: 0 0 20px 25px rgb(0, 0, 0);
+    z-index: 2;
+}
+
+#tablo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 320px;
+    border-radius: 12px;
+    padding: 10px 25px 0px 25px;
+    transition: box-shadow 0.45s ease-in-out;
+    will-change: box-shadow;
+}
+
+#media-player {
+    position: relative;
+    width: 100%;
+    /* max-width: 225px; */
+    height: 60px;
+    background-color: transparent;
+    color: white;
+    padding: 12px;
+    /* margin: 0px -30px 0px -30px; */
+    border-radius: 12px;
+    overflow: hidden;
+    user-select: none;
+    touch-action: manipulation;
+    -webkit-user-select: none;
+    -webkit-touch-callout: none;
+}
+
+#media-info {
+    position: absolute;
+    width: 140%;
+    top: 10px;
+    left: 16px;
+    z-index: 1;
+}
+
+#track-title-wrapper {
+    display: flex;
+    flex-direction: row;
+    width: 65%;
+    overflow: hidden;
+    white-space: nowrap;
+    position: relative;
+    font-size: 18px;
+    color: #aaa;
+    height: 24px;
+}
+
+#playback-status {
+    font-size: 15px;
+    z-index: 1;
+}
+
+#track-title {
+    display: inline-block;
+    white-space: nowrap;
+    user-select: none;
+    z-index: 0;
+}
+
+#track-title.scrolling {
+    animation: scroll-left 10s linear infinite;
+}
+
+#track-title span {
+    display: inline-block;
+    padding-right: 40px;
+}
+
+@keyframes scroll-left {
+    0% {
+        transform: translateX(0);
+    }
+
+    100% {
+        transform: translateX(-50%);
+    }
+}
+
+#track-artist {
+    font-size: 14px;
+    color: #3e3e3e;
+    user-select: none;
+    /* -webkit-text-stroke-width: .8px;
+    -webkit-text-stroke-color: black; */
+}
+
+#track-source {
+    font-size: 7px;
+    color: #393939;
+    user-select: none;
+}
+
+#sound-bars {
+    position: absolute;
+    bottom: 12px;
+    left: 16px;
+    right: 16px;
+    display: flex;
+    align-items: flex-end;
+    height: 20px;
+    gap: 4px;
+    z-index: 0;
+}
+
+#blya_btn {
+    user-select: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100px;
+    height: 56.7px;
+    background: transparent;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    margin: 0;
+}
+
+#blya_btn img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.spinner-circle {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 50px;
+    height: 50px;
+    border: 4px solid rgba(0, 0, 0, 0.1);
+    border-top: 4px solid #000000;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+}
+
+@keyframes spin {
+    0% {
+        transform: translate(-50%, -50%) rotate(0deg);
+    }
+
+    100% {
+        transform: translate(-50%, -50%) rotate(360deg);
+    }
+}
+
+.ripple-wrapper {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    z-index: 10;
+}
+
+.ripple-ring {
+    position: absolute;
+    width: 70px;
+    height: 39px;
+    border: 2px solid rgba(255, 255, 255);
+    border-radius: 50% / 56%;
+    transform: translate(-50%, -50%) scale(0);
+    animation: rippleExpand 1s ease-out forwards;
+    opacity: 0;
+}
+
+.ripple-ring:nth-child(1) {
+    animation-delay: 0s;
+}
+
+.ripple-ring:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.ripple-ring:nth-child(3) {
+    animation-delay: 0.4s;
+}
+
+@keyframes rippleExpand {
+    0% {
+        transform: translate(-50%, -50%) scale(0.5);
+        opacity: 0.7;
+    }
+
+    100% {
+        transform: translate(-50%, -50%) scale(2.5);
+        opacity: 0;
+    }
+}
