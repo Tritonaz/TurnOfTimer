@@ -7,22 +7,3 @@ function secondsToDhms(seconds) {
     return `${d}d ${h}h ${m}m ${s}s`;
   }
   
-
-// Функція, яка виконує reload тільки один раз на вхід мишки
-// let canRefresh = true;
-
-// Коли мишка заходить у вікно
-// window.addEventListener('mouseover', () => {
-//   if (canRefresh) {
-//     location.reload();
-//     canRefresh = false;
-//   }
-// });
-
-// // Коли мишка повністю покидає вікно — дозволяємо оновлення знову
-// window.addEventListener('mouseout', (e) => {
-//   // Якщо мишка покинула вікно повністю
-//   if (!e.relatedTarget && !e.toElement) {
-//     canRefresh = true;
-//   }
-// });
